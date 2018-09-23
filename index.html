@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ja">
+ <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="css/styles.css">
+ </head>
+ <body>
+
+    <!-- データと結びつくViewをView modelという。-->
+    <div id="app" class="container">
+      <h2>
+      <button class="btn" v-on:click="purge">purge</button>
+         My app
+   <hr>
+      <span class="info">({{ remaining.length }}/{{ todos.length}})</span>
+      </h2>
+       <ul>
+         <li v-for="(todo,index) in todos">
+            <input type="checkbox" v-model="todo.isDone">
+         <span v-bind:class="{done: todo.isDone}">{{ todo.title }}</span>
+         <!-- プロパティがisDoneとtitleなので、これらに入力した値が配列todosに格納されてfor文が実行される。 -->
+         <!-- V-bind:classでクラスを動的に切り替える事ができる。-->
+         <!-- 上記の場合は、doneクラスの真偽性で切り替える事ができる。-->
+         <span v-on:click="deleteItem(index)" class="command">[削除]</span>
+         </li>
+         <!-- ↑繰り返しを実行するディレクティブ-->
+         <!-- vがつくやつをディレクティブという。-->
+      </ul>
+      <ul>
+         <li v-show="!todos.length">task nothing!!</li>
+      </ul>
+      <form v-on:submit="addItem">
+      <input type="text" v-model="newItem">
+      <!-- data:newItemにアクセスしている。-->
+      <input type="submit" value="add">
+      <!-- v-on:ディレクティブは@submitでもバインティングできる。 -->
+      </form>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
